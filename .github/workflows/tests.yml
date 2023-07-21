@@ -83,9 +83,16 @@ jobs:
 
     - name: Tests
       run: |
-        pytest tests \
-          --ignore tests/allennlp_tests \
-          --ignore tests/test_mxnet.py
+        if [ ${{ matrix.python-version }} == 3.11 ]; then
+          pytest tests \
+            --ignore tests/allennlp_tests \
+            --ignore tests/test_mxnet.py \
+            --ignore tests/test_tensorflow.py
+        else
+          pytest tests \
+            --ignore tests/allennlp_tests \
+            --ignore tests/test_mxnet.py
+        fi
 
     - name: Tests(Deprecated)
       run: |
