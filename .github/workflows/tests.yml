@@ -97,5 +97,7 @@ jobs:
     - name: Tests(Deprecated)
       run: |
         pip install "numpy<1.24"
-        pytest tests/allennlp_tests
+        if [ ${{ matrix.python-version }} != 3.11 ]; then
+          pytest tests/allennlp_tests
+        fi
         pytest tests/test_mxnet.py
